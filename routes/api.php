@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +18,32 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+
+Route::post('/tokens/create', function (Request $request) {
+
+    $token = $request->user()->createToken($request->token_name);
+
+    return ['token' => $token->plainTextToken];
+});
+
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/home', function (Request $request) {
+        return 'Home hdhdh';
+    });
+
+    Route::get('/home1', function (Request $request) {
+        return 'Home hdhdh';
+    });
+
+    Route::get('/home1', function (Request $request) {
+        return 'Home hdhdh';
+    });
+
+    Route::get('/home1', function (Request $request) {
+        return 'Home hdhdh';
+    });
 });
